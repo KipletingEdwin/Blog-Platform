@@ -6,13 +6,15 @@ const Navbar = ({setIsAuthenticated}) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
     localStorage.removeItem("isAuthenticated");
-
-    setIsAuthenticated(false);  // �� Update isAuthenticated state after logout to false
-
-    navigate('/');
+    localStorage.removeItem("token");
+    localStorage.removeItem("userRole");
+  
+    setIsAuthenticated(false); // ✅ Update state immediately
+    window.dispatchEvent(new Event("storage")); // ✅ Notify other components
+    navigate("/login"); // ✅ Redirect to login page
   };
+  
 
 
   return (

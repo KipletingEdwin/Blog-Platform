@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import './BlogPost.css';
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import CommentSection from "./CommentSection";
+import CommentSection from "../CommentSection/CommentSection";
 
 const BlogPost = () => {
   const { id } = useParams();

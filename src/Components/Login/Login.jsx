@@ -12,28 +12,31 @@ const Login = ({setIsAuthenticated}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(credentials),
       });
-
+  
       const data = await response.json();
-
+  
       if (response.ok) {
         console.log("Login successful:", data);
-
-        // ✅ Store token and authentication status
+  
+        // ✅ Ensure `localStorage` updates BEFORE setting state
         localStorage.setItem("token", data.token);
         localStorage.setItem("isAuthenticated", "true"); 
-
-        setIsAuthenticated(true);
-
-        // ✅ Redirect AFTER updating localStorage
+        localStorage.setItem("userRole", data.role || "user");
+  
+        console.log("Stored Auth:", localStorage.getItem("isAuthenticated")); // ✅ Debug log
+  
+        setIsAuthenticated(true); // ✅ Update state
+  
+        // ✅ Redirect AFTER setting auth
         navigate("/home");
-
+  
       } else {
         alert("Login failed: " + data.error);
       }
@@ -41,6 +44,8 @@ const Login = ({setIsAuthenticated}) => {
       console.error("Error during login:", error);
     }
   };
+  
+  
 
   return (
     <div className="login-container">
