@@ -26,7 +26,7 @@ function App() {
   return (
     <>
       {/* ✅ Show Navbar only if authenticated */}
-      {isAuthenticated && <Navbar setIsAuthenticated={setIsAuthenticated} />}
+      {isAuthenticated && <Navbar setIsAuthenticated={setIsAuthenticated} userRole={userRole} />}
 
       <Routes>
   <Route path="/" element={<Home />} /> 
