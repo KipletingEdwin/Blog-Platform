@@ -1,97 +1,95 @@
-/* Navbar.css */
+/* Navbar Styles */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #ffffff;
     padding: 15px 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: relative;
+    background-color: #333;
+    color: white;
   }
   
-  /* Logo */
   .logo a {
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: bold;
-    color: #333;
     text-decoration: none;
+    color: white;
   }
   
   /* Navigation Links */
   .nav-links {
-    list-style: none;
     display: flex;
-    gap: 15px;
-  }
-  
-  .nav-links li {
-    display: inline-block;
+    list-style: none;
+    gap: 1.5rem;
+    transition: transform 0.3s ease-in-out;
   }
   
   .nav-links a {
     text-decoration: none;
-    font-size: 16px;
-    color: #555;
-    transition: color 0.3s;
-  }
-  
-  .nav-links a:hover {
-    color: #ff6600;
-  }
-  
-  /* Logout Button */
-  .logout-btn {
-    background: #ff6600;
     color: white;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    transition: background 0.3s;
+    font-size: 1.1rem;
   }
   
-  .logout-btn:hover {
-    background: #cc5200;
-  }
-  
-  /* User Profile */
+  /* Profile Section */
   .profile-section {
     display: flex;
     align-items: center;
     gap: 10px;
   }
   
-  .username {
-    font-weight: bold;
-    color: #333;
+  .profile-pic {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
   }
   
-  /* Mobile Burger Menu */
+  /* Logout Button */
+  .logout-btn {
+    background: #ff4b5c;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+    transition: 0.3s;
+  }
+  
+  .logout-btn:hover {
+    background: #d43f4b;
+  }
+  
+  /* Burger Menu (Mobile) */
   .burger-menu {
     display: none;
-    font-size: 24px;
+    font-size: 2rem;
     cursor: pointer;
   }
   
-  /* Responsive Navbar */
-  @media screen and (max-width: 768px) {
+  /* Mobile Menu */
+  @media (max-width: 768px) {
+    .burger-menu {
+      display: block;
+    }
+  
     .nav-links {
-      display: none;
-      flex-direction: column;
-      background: #ffffff;
       position: absolute;
       top: 60px;
-      right: 0;
+      left: 0;
+      flex-direction: column;
+      background: #333;
       width: 100%;
-      padding: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      height: 100vh;
+      transform: translateX(-100%);
+      padding: 20px;
     }
   
     .nav-links.open {
-      display: flex;
+      transform: translateX(0);
     }
   
-    .burger-menu {
-      display: block;
+    .profile-section {
+      justify-content: center;
     }
   }
   

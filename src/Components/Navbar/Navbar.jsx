@@ -5,7 +5,8 @@ import "./Navbar.css";
 const Navbar = ({ isAuthenticated, setIsAuthenticated, userRole }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const username = localStorage.getItem("username") || "Guest"; // Store username in localStorage
+  const username = localStorage.getItem("username") || "Guest"; // Store username
+  const profilePic = localStorage.getItem("profilePic") || "https://ui-avatars.com/api/?name=User"; // Default profile pic
 
   const handleLogout = () => {
     localStorage.removeItem("isAuthenticated");
@@ -34,9 +35,10 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated, userRole }) => {
             <li><Link to="/create" onClick={() => setMenuOpen(false)}>Create Post</Link></li>
             {userRole === "admin" && <li><Link to="/admin" onClick={() => setMenuOpen(false)}>Admin Dashboard</Link></li>}
 
-            {/* User Profile */}
+            {/* Profile Section */}
             <li className="profile-section">
-              <span className="username">👤 {username}</span>
+              <img src={profilePic} alt="Profile" className="profile-pic" />
+              <span className="username">{username}</span>
             </li>
 
             <li>

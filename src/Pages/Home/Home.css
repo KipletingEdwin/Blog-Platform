@@ -1,52 +1,58 @@
 .home-container {
-    font-family: Arial, sans-serif;
-    text-align: center;
     padding: 20px;
+    max-width: 900px;
+    margin: auto;
   }
   
-  .hero {
-    background: #f4f4f4;
-    padding: 50px 20px;
-    margin-bottom: 30px;
+  .trending-section {
+    background: #fff3cd;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .trending-posts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .trending-post {
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    flex: 1;
+  }
+  
+  .category-filter {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+  }
+  
+  .category-filter button {
+    padding: 8px 12px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 4px;
+  }
+  
+  .category-filter button.active {
+    background: #007bff;
+    color: white;
   }
   
   .blog-list {
-    max-width: 800px;
-    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
   }
   
-  .blog-post {
-    background: white;
+  .blog-item {
+    background: #f8f9fa;
     padding: 15px;
-    margin: 10px 0;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .read-more {
-    display: inline-block;
-    margin-top: 10px;
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .cta {
-    margin-top: 20px;
-  }
-  
-  .cta-button {
-    display: inline-block;
-    background: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-  }
-  
-  .footer {
-    margin-top: 50px;
-    padding: 20px;
-    background: #333;
-    color: white;
+    border-radius: 8px;
   }
   
