@@ -5,7 +5,7 @@ import "./Navbar.css";
 const Navbar = ({ isAuthenticated, setIsAuthenticated, userRole }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const username = localStorage.getItem("username") || "Guest"; // Store username in localStorage
+  const username = localStorage.getItem("username") || "Guest";
 
   const handleLogout = () => {
     localStorage.removeItem("isAuthenticated");
@@ -21,7 +21,7 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated, userRole }) => {
         <Link to="/">My Blog</Link>
       </div>
 
-      {/* Burger Menu for Mobile */}
+      {/* Mobile Menu Button */}
       <div className="burger-menu" onClick={() => setMenuOpen(!menuOpen)}>
         ☰
       </div>
@@ -45,8 +45,8 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated, userRole }) => {
           </>
         ) : (
           <>
-            <li><Link to="/login" className="auth-btn">Login</Link></li>
-            <li><Link to="/register" className="auth-btn signup-btn">Sign Up</Link></li>
+            <li><Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link></li>
+            <li><Link to="/register" onClick={() => setMenuOpen(false)}>Register</Link></li>
           </>
         )}
       </ul>
