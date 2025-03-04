@@ -1,0 +1,98 @@
+/* 🌟 Admin Dashboard Container */
+.admin-dashboard {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* 📌 Section Styling */
+  .dashboard-section {
+    margin-top: 30px;
+  }
+  
+  .admin-dashboard h2,
+  .dashboard-section h3 {
+    text-align: center;
+    color: #333;
+  }
+  
+  /* 📄 Table Styling */
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
+  
+  .admin-table th,
+  .admin-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .admin-table th {
+    background: #007bff;
+    color: white;
+  }
+  
+  .admin-table td {
+    background: #f9f9f9;
+  }
+  
+  /* ✨ Action Buttons */
+  .action-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .edit-btn,
+  .delete-btn {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+  }
+  
+  .edit-btn {
+    background-color: #ffc107;
+    color: black;
+    border: none;
+  }
+  
+  .edit-btn:hover {
+    background-color: #e0a800;
+  }
+  
+  .delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+  }
+  
+  .delete-btn:hover {
+    background-color: #b52b37;
+  }
+  
+  /* 📱 Mobile Responsive */
+  @media screen and (max-width: 768px) {
+    .admin-dashboard {
+      padding: 15px;
+    }
+  
+    .admin-table th,
+    .admin-table td {
+      font-size: 0.9rem;
+      padding: 8px;
+    }
+  
+    .edit-btn,
+    .delete-btn {
+      font-size: 0.8rem;
+      padding: 5px 10px;
+    }
+  }
+  

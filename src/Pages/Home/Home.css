@@ -10,14 +10,29 @@
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 20px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .trending-section h2 {
   color: #ff9800;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .trending-post {
   margin: 5px 0;
+  font-size: 16px;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+}
+
+.trending-post a {
+  text-decoration: none;
+  color: #333;
+}
+
+.trending-post:hover {
+  color: #ff9800;
 }
 
 /* 📌 Category Filters */
@@ -32,7 +47,15 @@
   cursor: pointer;
   background-color: #ddd;
   border-radius: 5px;
-  transition: background-color 0.3s ease-in-out;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.category-filters button:hover {
+  background-color: #007bff;
+  color: white;
+  transform: scale(1.05);
 }
 
 .category-filters .active {
@@ -43,14 +66,36 @@
 /* 📝 Blog Post Styles */
 .post-list {
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .post-card {
+  width: 90%;
+  max-width: 600px;
   border: 1px solid #ddd;
-  padding: 15px;
+  padding: 20px;
   margin-bottom: 15px;
   border-radius: 8px;
   background: #f9f9f9;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.post-card:hover {
+  transform: scale(1.02);
+}
+
+.post-card h3 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.post-card p {
+  color: #555;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .read-more {
@@ -58,12 +103,18 @@
   margin-top: 10px;
   text-decoration: none;
   color: #007bff;
+  font-weight: bold;
+  transition: opacity 0.3s;
+}
+
+.read-more:hover {
+  opacity: 0.8;
 }
 
 /* 🚀 Auth Buttons (Login & Sign Up) */
 .auth-buttons {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .auth-buttons .btn {
