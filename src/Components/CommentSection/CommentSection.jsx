@@ -5,6 +5,7 @@ const CommentSection = ({ postId }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [votes, setVotes] = useState({});
+  const [newCommentId, setNewCommentId] = useState(null); // Track the latest comment
 
   useEffect(() => {
     fetch(`http://localhost:3000/posts/${postId}/comments`)
@@ -57,12 +58,46 @@ const CommentSection = ({ postId }) => {
     }).catch((error) => console.error("Error voting:", error));
   };
 
+  const handleAddComment = () => {
+    if (newComment.trim() === "") return;
+
+    const newCommentData = {
+      id: Date.now(), // Temporary ID for animation
+      username: "You", // Placeholder until backend response
+      content: newComment,
+      upvotes: 0,
+      downvotes: 0,
+      created_at: new Date().toISOString(),
+    };
+
+    setComments((prev) => [newCommentData, ...prev]); // Add to UI instantly
+    setNewCommentId(newCommentData.id); // Set latest comment ID for animation
+    setNewComment("");
+
+    // Send to backend
+    fetch(`http://localhost:3000/posts/${postId}/comments`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ content: newComment }),
+    })
+      .then((response) => response.json())
+      .then((savedComment) => {
+        setComments((prev) =>
+          prev.map((comment) => (comment.id === newCommentData.id ? savedComment : comment))
+        );
+      })
+      .catch((error) => console.error("Error adding comment:", error));
+  };
+
   return (
     <div className="comment-section">
       <h2>Comments</h2>
       {comments.length > 0 ? (
         comments.map((comment) => (
-          <div key={comment.id} className="comment">
+          <div
+            key={comment.id}
+            className={`comment ${comment.id === newCommentId ? "fade-in" : ""}`}
+          >
             <p><strong>{comment.username}</strong>: {comment.content}</p>
             <div className="comment-actions">
               <button
@@ -91,7 +126,7 @@ const CommentSection = ({ postId }) => {
           onChange={(e) => setNewComment(e.target.value)}
           placeholder="Write a comment..."
         />
-        <button onClick={() => console.log("Comment posted")}>Post Comment</button>
+        <button onClick={handleAddComment}>Post Comment</button>
       </div>
     </div>
   );
