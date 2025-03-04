@@ -5,8 +5,10 @@ const CommentSection = ({ postId }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [newReply, setNewReply] = useState({});
+  const [editingComment, setEditingComment] = useState(null);
+  const [editingReply, setEditingReply] = useState(null);
+  const [editedText, setEditedText] = useState("");
   const [expandedComments, setExpandedComments] = useState({});
-  const [newCommentId, setNewCommentId] = useState(null);
 
   useEffect(() => {
     fetch(`http://localhost:3000/posts/${postId}/comments`)
@@ -27,7 +29,6 @@ const CommentSection = ({ postId }) => {
     };
 
     setComments((prev) => [newCommentData, ...prev]);
-    setNewCommentId(newCommentData.id);
     setNewComment("");
 
     fetch(`http://localhost:3000/posts/${postId}/comments`, {
@@ -42,6 +43,35 @@ const CommentSection = ({ postId }) => {
         );
       })
       .catch((error) => console.error("Error adding comment:", error));
+  };
+
+  const handleDeleteComment = (commentId) => {
+    setComments((prev) => prev.filter((comment) => comment.id !== commentId));
+
+    fetch(`http://localhost:3000/comments/${commentId}`, {
+      method: "DELETE",
+    }).catch((error) => console.error("Error deleting comment:", error));
+  };
+
+  const handleEditComment = (commentId) => {
+    setEditingComment(commentId);
+    const comment = comments.find((c) => c.id === commentId);
+    setEditedText(comment.content);
+  };
+
+  const handleUpdateComment = (commentId) => {
+    setComments((prev) =>
+      prev.map((comment) =>
+        comment.id === commentId ? { ...comment, content: editedText } : comment
+      )
+    );
+    setEditingComment(null);
+
+    fetch(`http://localhost:3000/comments/${commentId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ content: editedText }),
+    }).catch((error) => console.error("Error updating comment:", error));
   };
 
   const handleAddReply = (parentId) => {
@@ -60,7 +90,6 @@ const CommentSection = ({ postId }) => {
       )
     );
 
-    setNewCommentId(replyData.id);
     setNewReply((prev) => ({ ...prev, [parentId]: "" }));
 
     fetch(`http://localhost:3000/comments/${parentId}/replies`, {
@@ -96,8 +125,27 @@ const CommentSection = ({ postId }) => {
       <h2>Comments</h2>
       {comments.length > 0 ? (
         comments.map((comment) => (
-          <div key={comment.id} className={`comment ${comment.id === newCommentId ? "fade-in" : ""}`}>
-            <p><strong>{comment.username}</strong>: {comment.content}</p>
+          <div key={comment.id} className="comment">
+            {editingComment === comment.id ? (
+              <textarea
+                value={editedText}
+                onChange={(e) => setEditedText(e.target.value)}
+              />
+            ) : (
+              <p>
+                <strong>{comment.username}</strong>: {comment.content}
+              </p>
+            )}
+
+            {editingComment === comment.id ? (
+              <button onClick={() => handleUpdateComment(comment.id)}>Save</button>
+            ) : (
+              <>
+                <button onClick={() => handleEditComment(comment.id)}>Edit</button>
+                <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
+              </>
+            )}
+
             <button onClick={() => toggleReplies(comment.id)}>
               {expandedComments[comment.id] ? "Hide Replies" : "Show Replies"} ({comment.replies.length})
             </button>
@@ -105,7 +153,7 @@ const CommentSection = ({ postId }) => {
             {expandedComments[comment.id] && (
               <div className="replies">
                 {comment.replies.map((reply) => (
-                  <div key={reply.id} className={`reply ${reply.id === newCommentId ? "fade-in" : ""}`}>
+                  <div key={reply.id} className="reply">
                     <p><strong>{reply.username}</strong>: {reply.content}</p>
                   </div>
                 ))}
@@ -124,7 +172,6 @@ const CommentSection = ({ postId }) => {
         <p>No comments yet.</p>
       )}
 
-      {/* Add New Comment */}
       <div className="add-comment">
         <textarea
           value={newComment}

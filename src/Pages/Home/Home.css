@@ -1,58 +1,105 @@
+/* Home Page Styling */
 .home-container {
-    padding: 20px;
-    max-width: 900px;
-    margin: auto;
-  }
-  
-  .trending-section {
-    background: #fff3cd;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-  }
-  
-  .trending-posts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  
-  .trending-post {
-    background: white;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    flex: 1;
-  }
-  
-  .category-filter {
-    display: flex;
-    gap: 10px;
-    margin: 10px 0;
-  }
-  
-  .category-filter button {
-    padding: 8px 12px;
-    cursor: pointer;
-    border: 1px solid #ddd;
-    background: white;
-    border-radius: 4px;
-  }
-  
-  .category-filter button.active {
-    background: #007bff;
-    color: white;
-  }
-  
-  .blog-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .blog-item {
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 8px;
-  }
-  
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.home-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.home-subtitle {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Trending Section */
+.trending-section {
+  background-color: #fff6d6;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.trending-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Category Filters */
+.category-filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.category-btn {
+  padding: 8px 15px;
+  border: none;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.category-btn.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.category-btn:hover {
+  background-color: #ddd;
+}
+
+/* Posts Container */
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Call-to-Action for No Posts */
+.no-posts {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #444;
+  padding: 20px;
+}
+
+.create-post-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.create-post-btn:hover {
+  background-color: #218838;
+}
+
+/* Skeleton Loader for Empty Posts */
+.post-skeleton {
+  width: 100%;
+  height: 120px;
+  background: #f0f0f0;
+  border-radius: 8px;
+  animation: skeleton-loading 1.2s infinite ease-in-out;
+}
+
+@keyframes skeleton-loading {
+  0% { background: #e0e0e0; }
+  50% { background: #d4d4d4; }
+  100% { background: #e0e0e0; }
+}
