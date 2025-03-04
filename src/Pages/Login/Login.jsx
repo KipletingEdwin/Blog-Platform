@@ -4,16 +4,18 @@ import "./Login.css";
 
 const Login = ({ setIsAuthenticated }) => {
   const [credentials, setCredentials] = useState({ username: "", password: "" });
-  const [error, setError] = useState(""); // For error handling
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  // ✅ Handle Input Change
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
+  // ✅ Handle Form Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Clear any previous errors
+    setError("");
 
     try {
       const response = await fetch("http://localhost:3000/login", {
@@ -27,16 +29,18 @@ const Login = ({ setIsAuthenticated }) => {
       if (response.ok) {
         console.log("Login successful:", data);
 
-        // ✅ Store authentication details in localStorage
+        // ✅ Store auth details
         localStorage.setItem("token", data.token);
         localStorage.setItem("isAuthenticated", "true");
-        localStorage.setItem("userRole", data.user.role); // Save user role (admin/user)
-        localStorage.setItem("username", data.user.username); // Store username
+        localStorage.setItem("username", credentials.username);
 
-        setIsAuthenticated(true); // Update authentication state
-        navigate("/"); // Redirect to Home page
+        setIsAuthenticated(true);
+
+        // ✅ Redirect to home page
+        navigate("/");
+
       } else {
-        setError("Invalid username or password"); // Show error message
+        setError(data.error || "Login failed.");
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -49,22 +53,8 @@ const Login = ({ setIsAuthenticated }) => {
       <h2>Login</h2>
       {error && <p className="error-message">{error}</p>}
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={credentials.username}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={credentials.password}
-          onChange={handleChange}
-          required
-        />
+        <input type="text" name="username" placeholder="Username" value={credentials.username} onChange={handleChange} required />
+        <input type="password" name="password" placeholder="Password" value={credentials.password} onChange={handleChange} required />
         <button type="submit">Login</button>
       </form>
     </div>

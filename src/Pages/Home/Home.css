@@ -85,6 +85,23 @@
   transition: background 0.3s ease;
 }
 
+.auth-cta {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.auth-cta p {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.auth-cta .auth-btn {
+  margin: 5px;
+  padding: 8px 15px;
+  display: inline-block;
+}
+
+
 .create-post-btn:hover {
   background-color: #218838;
 }

@@ -32,6 +32,21 @@ const Home = ({ isAuthenticated }) => {
         <button className="category-btn">Business</button>
       </div>
 
+
+
+
+      {!isAuthenticated && (
+  <div className="auth-cta">
+    <p>Join the community! Sign up or log in to start posting.</p>
+    <Link to="/login" className="auth-btn">Login</Link>
+    <Link to="/register" className="auth-btn signup-btn">Sign Up</Link>
+  </div>
+)}
+
+
+
+
+
       {/* Blog Posts */}
       <div className="posts-container">
         {loading ? (

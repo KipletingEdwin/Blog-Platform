@@ -5,8 +5,7 @@ import "./Navbar.css";
 const Navbar = ({ isAuthenticated, setIsAuthenticated, userRole }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const username = localStorage.getItem("username") || "Guest"; // Store username
-  const profilePic = localStorage.getItem("profilePic") || "https://ui-avatars.com/api/?name=User"; // Default profile pic
+  const username = localStorage.getItem("username") || "Guest"; // Store username in localStorage
 
   const handleLogout = () => {
     localStorage.removeItem("isAuthenticated");
@@ -35,10 +34,9 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated, userRole }) => {
             <li><Link to="/create" onClick={() => setMenuOpen(false)}>Create Post</Link></li>
             {userRole === "admin" && <li><Link to="/admin" onClick={() => setMenuOpen(false)}>Admin Dashboard</Link></li>}
 
-            {/* Profile Section */}
+            {/* User Profile */}
             <li className="profile-section">
-              <img src={profilePic} alt="Profile" className="profile-pic" />
-              <span className="username">{username}</span>
+              <span className="username">👤 {username}</span>
             </li>
 
             <li>
@@ -47,8 +45,8 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated, userRole }) => {
           </>
         ) : (
           <>
-            <li><Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link></li>
-            <li><Link to="/register" onClick={() => setMenuOpen(false)}>Register</Link></li>
+            <li><Link to="/login" className="auth-btn">Login</Link></li>
+            <li><Link to="/register" className="auth-btn signup-btn">Sign Up</Link></li>
           </>
         )}
       </ul>

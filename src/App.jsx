@@ -29,7 +29,7 @@ function App() {
       {isAuthenticated && <Navbar setIsAuthenticated={setIsAuthenticated} userRole={userRole} />}
 
       <Routes>
-  <Route path="/" element={<Home />} /> 
+  <Route path="/" element={<Home isAuthenticated={isAuthenticated} />} /> 
   <Route path="/post/:id" element={<BlogPost />} />
   <Route path="/create" element={isAuthenticated ? <CreatePost /> : <Navigate to="/login" />} />
   <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
