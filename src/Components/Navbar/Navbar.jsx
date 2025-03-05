@@ -12,7 +12,7 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated, userRole }) => {
     localStorage.removeItem("userRole");
     localStorage.removeItem("username");
     setIsAuthenticated(false);
-    navigate("/login");
+    navigate("/");
   };
 
   return (

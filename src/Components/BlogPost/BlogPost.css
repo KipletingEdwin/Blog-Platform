@@ -1,59 +1,36 @@
-.blog-post-container {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
-  }
-  
-  .post-meta {
-    font-size: 14px;
-    color: gray;
-  }
-  
-  .post-content {
-    margin-top: 20px;
-    line-height: 1.6;
-  }
-  
-  .likes-section {
-    margin-top: 15px;
-    display: flex;
-    gap: 10px;
-  }
-  
-  .likes-section button {
-    padding: 8px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .comments-section {
-    margin-top: 30px;
-  }
-  
-  .comment {
-    background: #f8f9fa;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 5px;
-  }
-  
-  .add-comment {
-    margin-top: 10px;
-  }
-  
-  .add-comment textarea {
-    width: 100%;
-    padding: 8px;
-    border-radius: 5px;
-  }
-  
-  .add-comment button {
-    margin-top: 5px;
-    padding: 8px 12px;
-    border: none;
-    cursor: pointer;
-    background: #007bff;
-    color: white;
-    border-radius: 4px;
-  }
-  
+.blogpost-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.comments-section {
+  margin-top: 20px;
+}
+
+.comment {
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.comment-form input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.comment-form button {
+  margin-top: 10px;
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}

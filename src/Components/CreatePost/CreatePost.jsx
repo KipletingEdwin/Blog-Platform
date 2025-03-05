@@ -13,11 +13,28 @@ const CreatePost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    await axios.post("http://localhost:3000/posts", { title, content, category });
-
-    navigate("/");
+  
+    const token = localStorage.getItem("token"); // ✅ Retrieve token from localStorage
+  
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/posts",
+        { title, content, category },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // ✅ Include the token in the request headers
+          },
+        }
+      );
+  
+      console.log("Post created successfully:", response.data);
+      navigate("/");
+    } catch (error) {
+      console.error("Error creating post:", error.response?.data || error.message);
+    }
   };
+  
 
   return (
     <div>

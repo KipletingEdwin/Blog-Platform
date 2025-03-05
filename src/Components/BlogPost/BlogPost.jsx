@@ -1,82 +1,96 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./BlogPost.css";
 
-const BlogPost = () => {
+const BlogPost = ({ isAuthenticated }) => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
 
   useEffect(() => {
-    // Fetch the blog post
+    // Fetch the post
     fetch(`http://localhost:3000/posts/${id}`)
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((data) => setPost(data))
-      .catch((error) => console.error("Error fetching post:", error));
+      .catch((err) => console.error("Error fetching post:", err));
 
-    // Fetch comments for this post
+    // Fetch comments
     fetch(`http://localhost:3000/posts/${id}/comments`)
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((data) => setComments(data))
-      .catch((error) => console.error("Error fetching comments:", error));
+      .catch((err) => console.error("Error fetching comments:", err));
   }, [id]);
 
-  const handleCommentSubmit = () => {
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
     if (!newComment.trim()) return;
 
-    const commentData = { content: newComment, post_id: id };
+    const token = localStorage.getItem("token"); // Get JWT token
 
-    fetch(`http://localhost:3000/posts/${id}/comments`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(commentData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setComments([...comments, data]); // Update comment list
-        setNewComment(""); // Clear input field
-      })
-      .catch((error) => console.error("Error adding comment:", error));
+    try {
+      const response = await fetch(`http://localhost:3000/posts/${id}/comments`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Send token in header
+        },
+        body: JSON.stringify({ comment: { text: newComment } }),
+      });
+
+      if (response.ok) {
+        const commentData = await response.json();
+        setComments([...comments, commentData]); // Update comment list
+        setNewComment(""); // Clear input
+      } else {
+        console.error("Error submitting comment:", await response.json());
+      }
+    } catch (err) {
+      console.error("Network error:", err);
+    }
   };
 
-  if (!post) return <p>Loading...</p>;
-
   return (
-    <div className="blog-post-container">
-      <h1>{post.title}</h1>
-      <p className="post-meta">By {post.author} | {new Date(post.created_at).toLocaleDateString()}</p>
-      <div className="post-content">{post.content}</div>
+    <div className="blogpost-container">
+      {post ? (
+        <>
+          <h1>{post.title}</h1>
+          <p>{post.content}</p>
+          <p><strong>Category:</strong> {post.category}</p>
 
-      {/* Like & Dislike */}
-      <div className="likes-section">
-        <button>👍 {post.likes} Likes</button>
-        <button>👎 {post.dislikes} Dislikes</button>
-      </div>
+          {/* Comments Section */}
+          <div className="comments-section">
+            <h2>Comments</h2>
+            {comments.length > 0 ? (
+              comments.map((comment) => (
+                <div key={comment.id} className="comment">
+                  <p>{comment.text}</p>
+                </div>
+              ))
+            ) : (
+              <p>No comments yet.</p>
+            )}
 
-      {/* Comments Section */}
-      <div className="comments-section">
-        <h2>Comments</h2>
-        {comments.length > 0 ? (
-          comments.map((comment) => (
-            <div key={comment.id} className="comment">
-              <p><strong>{comment.username}</strong>: {comment.content}</p>
-            </div>
-          ))
-        ) : (
-          <p>No comments yet.</p>
-        )}
-
-        {/* Add Comment */}
-        <div className="add-comment">
-          <textarea
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            placeholder="Write a comment..."
-          />
-          <button onClick={handleCommentSubmit}>Post Comment</button>
-        </div>
-      </div>
+            {/* Comment Form (Only if logged in) */}
+            {isAuthenticated ? (
+              <form onSubmit={handleCommentSubmit} className="comment-form">
+                <input
+                  type="text"
+                  placeholder="Write a comment..."
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                  required
+                />
+                <button type="submit">Post Comment</button>
+              </form>
+            ) : (
+              <p><a href="/login">Login</a> to leave a comment.</p>
+            )}
+          </div>
+        </>
+      ) : (
+        <p>Loading post...</p>
+      )}
     </div>
   );
 };
