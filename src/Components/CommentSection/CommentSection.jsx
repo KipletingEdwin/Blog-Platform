@@ -4,11 +4,9 @@ import "./CommentSection.css";
 const CommentSection = ({ postId }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
-  const [newReply, setNewReply] = useState({});
-  const [editingComment, setEditingComment] = useState(null);
-  const [editingReply, setEditingReply] = useState(null);
-  const [editedText, setEditedText] = useState("");
-  const [expandedComments, setExpandedComments] = useState({});
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editedCommentText, setEditedCommentText] = useState("");
+  const token = localStorage.getItem("token"); // ✅ Retrieve token
 
   useEffect(() => {
     fetch(`http://localhost:3000/posts/${postId}/comments`)
@@ -17,154 +15,111 @@ const CommentSection = ({ postId }) => {
       .catch((error) => console.error("Error fetching comments:", error));
   }, [postId]);
 
-  const handleAddComment = () => {
-    if (newComment.trim() === "") return;
+  // ✅ Handle Adding a Comment
+  const handleAddComment = async () => {
+    if (!newComment.trim()) return;
 
-    const newCommentData = {
-      id: Date.now(),
-      username: "You",
-      content: newComment,
-      replies: [],
-      created_at: new Date().toISOString(),
-    };
+    try {
+      const response = await fetch(`http://localhost:3000/posts/${postId}/comments`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ text: newComment }),
+      });
 
-    setComments((prev) => [newCommentData, ...prev]);
-    setNewComment("");
-
-    fetch(`http://localhost:3000/posts/${postId}/comments`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content: newComment }),
-    })
-      .then((response) => response.json())
-      .then((savedComment) => {
-        setComments((prev) =>
-          prev.map((comment) => (comment.id === newCommentData.id ? savedComment : comment))
-        );
-      })
-      .catch((error) => console.error("Error adding comment:", error));
+      if (response.ok) {
+        const savedComment = await response.json();
+        setComments([...comments, savedComment]); // Add to UI
+        setNewComment(""); // Clear input
+      } else {
+        console.error("Error submitting comment:", await response.json());
+      }
+    } catch (err) {
+      console.error("Network error:", err);
+    }
   };
 
-  const handleDeleteComment = (commentId) => {
-    setComments((prev) => prev.filter((comment) => comment.id !== commentId));
+  // ✅ Handle Deleting a Comment
+  const handleDeleteComment = async (commentId) => {
+    if (!window.confirm("Are you sure you want to delete this comment?")) return;
 
-    fetch(`http://localhost:3000/comments/${commentId}`, {
-      method: "DELETE",
-    }).catch((error) => console.error("Error deleting comment:", error));
+    try {
+      const response = await fetch(`http://localhost:3000/comments/${commentId}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (response.ok) {
+        setComments(comments.filter((comment) => comment.id !== commentId)); // Remove from UI
+      } else {
+        console.error("Error deleting comment:", await response.json());
+      }
+    } catch (err) {
+      console.error("Network error:", err);
+    }
   };
 
-  const handleEditComment = (commentId) => {
-    setEditingComment(commentId);
-    const comment = comments.find((c) => c.id === commentId);
-    setEditedText(comment.content);
+  // ✅ Handle Editing a Comment
+  const handleEditComment = (commentId, currentText) => {
+    setEditingCommentId(commentId);
+    setEditedCommentText(currentText);
   };
 
-  const handleUpdateComment = (commentId) => {
-    setComments((prev) =>
-      prev.map((comment) =>
-        comment.id === commentId ? { ...comment, content: editedText } : comment
-      )
-    );
-    setEditingComment(null);
+  // ✅ Handle Updating a Comment
+  const handleUpdateComment = async (commentId) => {
+    if (!editedCommentText.trim()) return;
 
-    fetch(`http://localhost:3000/comments/${commentId}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content: editedText }),
-    }).catch((error) => console.error("Error updating comment:", error));
-  };
+    try {
+      const response = await fetch(`http://localhost:3000/comments/${commentId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ text: editedCommentText }),
+      });
 
-  const handleAddReply = (parentId) => {
-    if (newReply[parentId]?.trim() === "") return;
-
-    const replyData = {
-      id: Date.now(),
-      username: "You",
-      content: newReply[parentId],
-      created_at: new Date().toISOString(),
-    };
-
-    setComments((prev) =>
-      prev.map((comment) =>
-        comment.id === parentId ? { ...comment, replies: [...comment.replies, replyData] } : comment
-      )
-    );
-
-    setNewReply((prev) => ({ ...prev, [parentId]: "" }));
-
-    fetch(`http://localhost:3000/comments/${parentId}/replies`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content: newReply[parentId] }),
-    })
-      .then((response) => response.json())
-      .then((savedReply) => {
-        setComments((prev) =>
-          prev.map((comment) =>
-            comment.id === parentId
-              ? {
-                  ...comment,
-                  replies: comment.replies.map((r) => (r.id === replyData.id ? savedReply : r)),
-                }
-              : comment
+      if (response.ok) {
+        setComments(
+          comments.map((comment) =>
+            comment.id === commentId ? { ...comment, text: editedCommentText } : comment
           )
         );
-      })
-      .catch((error) => console.error("Error adding reply:", error));
-  };
-
-  const toggleReplies = (commentId) => {
-    setExpandedComments((prev) => ({
-      ...prev,
-      [commentId]: !prev[commentId],
-    }));
+        setEditingCommentId(null); // Exit edit mode
+      } else {
+        console.error("Error updating comment:", await response.json());
+      }
+    } catch (err) {
+      console.error("Network error:", err);
+    }
   };
 
   return (
     <div className="comment-section">
       <h2>Comments</h2>
+      
+      {/* List Comments */}
       {comments.length > 0 ? (
         comments.map((comment) => (
           <div key={comment.id} className="comment">
-            {editingComment === comment.id ? (
+            {editingCommentId === comment.id ? (
               <textarea
-                value={editedText}
-                onChange={(e) => setEditedText(e.target.value)}
+                value={editedCommentText}
+                onChange={(e) => setEditedCommentText(e.target.value)}
               />
             ) : (
-              <p>
-                <strong>{comment.username}</strong>: {comment.content}
-              </p>
+              <p><strong>{comment.username}</strong>: {comment.text}</p>
             )}
 
-            {editingComment === comment.id ? (
+            {editingCommentId === comment.id ? (
               <button onClick={() => handleUpdateComment(comment.id)}>Save</button>
             ) : (
               <>
-                <button onClick={() => handleEditComment(comment.id)}>Edit</button>
+                <button onClick={() => handleEditComment(comment.id, comment.text)}>Edit</button>
                 <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
               </>
-            )}
-
-            <button onClick={() => toggleReplies(comment.id)}>
-              {expandedComments[comment.id] ? "Hide Replies" : "Show Replies"} ({comment.replies.length})
-            </button>
-
-            {expandedComments[comment.id] && (
-              <div className="replies">
-                {comment.replies.map((reply) => (
-                  <div key={reply.id} className="reply">
-                    <p><strong>{reply.username}</strong>: {reply.content}</p>
-                  </div>
-                ))}
-
-                <textarea
-                  value={newReply[comment.id] || ""}
-                  onChange={(e) => setNewReply({ ...newReply, [comment.id]: e.target.value })}
-                  placeholder="Write a reply..."
-                />
-                <button onClick={() => handleAddReply(comment.id)}>Reply</button>
-              </div>
             )}
           </div>
         ))
@@ -172,6 +127,7 @@ const CommentSection = ({ postId }) => {
         <p>No comments yet.</p>
       )}
 
+      {/* Add Comment */}
       <div className="add-comment">
         <textarea
           value={newComment}

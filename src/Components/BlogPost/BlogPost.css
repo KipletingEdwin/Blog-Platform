@@ -1,3 +1,4 @@
+/* 📝 Blog Post Container */
 .blogpost-container {
   max-width: 800px;
   margin: 20px auto;
@@ -7,20 +8,27 @@
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* 📌 Comments Section */
 .comments-section {
   margin-top: 20px;
 }
 
 .comment {
   background: #f9f9f9;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  transition: background 0.3s ease-in-out;
 }
 
+.comment:hover {
+  background: #f1f1f1;
+}
+
+/* 🎯 Comment Form */
 .comment-form input {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin-top: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -33,4 +41,80 @@
   color: white;
   border: none;
   cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out;
+}
+
+.comment-form button:hover {
+  background: #0056b3;
+}
+
+/* ✅ Edit & Delete Buttons */
+.comment-actions {
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+}
+
+.comment-actions button {
+  padding: 6px 12px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out;
+}
+
+/* 🎨 Edit Button */
+.comment-actions .edit-btn {
+  background: #ffc107;
+  color: black;
+}
+
+.comment-actions .edit-btn:hover {
+  background: #e0a800;
+}
+
+/* 🗑 Delete Button */
+.comment-actions .delete-btn {
+  background: #dc3545;
+  color: white;
+}
+
+.comment-actions .delete-btn:hover {
+  background: #b52b37;
+}
+
+/* 📌 Editing Mode */
+.edit-comment-textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Save & Cancel Buttons */
+.save-cancel-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.save-cancel-buttons .save-btn {
+  background: #28a745;
+  color: white;
+}
+
+.save-cancel-buttons .save-btn:hover {
+  background: #218838;
+}
+
+.save-cancel-buttons .cancel-btn {
+  background: #6c757d;
+  color: white;
+}
+
+.save-cancel-buttons .cancel-btn:hover {
+  background: #5a6268;
 }
