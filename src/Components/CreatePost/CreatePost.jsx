@@ -11,6 +11,8 @@ const CreatePost = () => {
   const [category, setCategory] = useState("");
   const navigate = useNavigate();
 
+  const categories = ["Technology", "Health", "Business", "Education", "Entertainment"];
+
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -41,7 +43,20 @@ const CreatePost = () => {
       <h2>Create New Blog Post</h2>
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} required />
-        <input type="text" placeholder="Category" value={category} onChange={(e) => setCategory(e.target.value)} required />
+
+         {/* ✅ Dropdown for Category Selection */}
+         <select 
+          value={category} 
+          onChange={(e) => setCategory(e.target.value)} 
+          required
+        >
+          <option value="">Select Category</option>
+          {categories.map((cat) => (
+            <option key={cat} value={cat}>{cat}</option>
+          ))}
+        </select>
+
+
         <ReactQuill value={content} onChange={setContent} />
         <button type="submit">Publish</button>
       </form>

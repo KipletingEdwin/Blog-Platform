@@ -33,11 +33,14 @@ const Login = ({ setIsAuthenticated }) => {
         localStorage.setItem("token", data.token);
         localStorage.setItem("isAuthenticated", "true");
         localStorage.setItem("username", credentials.username);
+        localStorage.setItem("user", JSON.stringify(data.user));
 
         setIsAuthenticated(true);
 
         // ✅ Redirect to home page
         navigate("/");
+
+      
 
       } else {
         setError(data.error || "Login failed.");

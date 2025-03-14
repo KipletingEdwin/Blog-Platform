@@ -52,7 +52,7 @@ const Home = () => {
 
       {/* 📌 Category Filters */}
       <div className="category-filters">
-        {["All", "Technology", "Health", "Business"].map((category) => (
+        {["All", "Technology", "Health", "Business","Education","Entertainment"].map((category) => (
           <button key={category} className={selectedCategory === category ? "active" : ""} onClick={() => setSelectedCategory(category)}>
             {category}
           </button>

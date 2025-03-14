@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import "./BlogPost.css";
 
 const BlogPost = () => {
@@ -9,20 +10,25 @@ const BlogPost = () => {
   const [newComment, setNewComment] = useState("");
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editedCommentText, setEditedCommentText] = useState("");
+    // const navigate = useNavigate();
+
+  // ✅ Get Logged-in User from localStorage
+  const currentUser = JSON.parse(localStorage.getItem("user")) || {};
+
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-  
+
     fetch(`http://localhost:3000/posts/${id}`)
       .then((res) => res.json())
       .then((data) => setPost(data))
       .catch((err) => console.error("Error fetching post:", err));
-  
+
     fetch(`http://localhost:3000/posts/${id}/comments`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`, // ✅ Attach token
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => {
@@ -30,7 +36,7 @@ const BlogPost = () => {
         return res.json();
       })
       .then((data) => {
-        console.log("🔍 Comments API Response:", data);
+        // console.log("🔍 Comments API Response:", data);
         setComments(Array.isArray(data) ? data : []);
       })
       .catch((err) => {
@@ -38,33 +44,32 @@ const BlogPost = () => {
         setComments([]);
       });
   }, [id]);
-  
 
   // ✅ Handle Comment Submission
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
     if (!newComment.trim()) return;
-  
-    const token = localStorage.getItem("token"); // ✅ Retrieve token
+
+    const token = localStorage.getItem("token");
     if (!token) {
       console.error("Unauthorized: No token found");
       return;
     }
-  
+
     try {
       const response = await fetch(`http://localhost:3000/posts/${id}/comments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // ✅ Send token in request
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ text: newComment }), // Ensure key matches backend
+        body: JSON.stringify({ text: newComment }),
       });
-  
+
       if (response.ok) {
         const commentData = await response.json();
-        setComments([...comments, commentData]); // ✅ Update comment list
-        setNewComment(""); // ✅ Clear input
+        setComments([...comments, commentData]);
+        setNewComment("");
       } else {
         console.error("Error submitting comment:", await response.json());
       }
@@ -72,7 +77,6 @@ const BlogPost = () => {
       console.error("Network error:", err);
     }
   };
-  
 
   // ✅ Handle Edit Comment
   const handleEditComment = (commentId, currentText) => {
@@ -91,14 +95,13 @@ const BlogPost = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ comment: { text: editedCommentText } }),
+        body: JSON.stringify({ text: editedCommentText }),
       });
 
       if (response.ok) {
-        const updatedComment = await response.json();
         setComments((prevComments) =>
           prevComments.map((comment) =>
-            comment.id === commentId ? updatedComment : comment
+            comment.id === commentId ? { ...comment, text: editedCommentText } : comment
           )
         );
         setEditingCommentId(null);
@@ -110,17 +113,18 @@ const BlogPost = () => {
     }
   };
 
+  // ✅ Handle Delete Comment
   const handleDeleteComment = async (commentId) => {
     const token = localStorage.getItem("token");
-  
+
     try {
       const response = await fetch(`http://localhost:3000/comments/${commentId}`, {
         method: "DELETE",
         headers: {
-          "Authorization": `Bearer ${token}`, // ✅ Include authentication token
+          Authorization: `Bearer ${token}`,
         },
       });
-  
+
       if (response.ok) {
         setComments((prev) => prev.filter((comment) => comment.id !== commentId));
       } else {
@@ -131,7 +135,6 @@ const BlogPost = () => {
       console.error("Network error:", error);
     }
   };
-  
 
   return (
     <div className="blogpost-container">
@@ -140,6 +143,17 @@ const BlogPost = () => {
           <h1>{post.title}</h1>
           <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
           <p><strong>Category:</strong> {post.category}</p>
+
+          
+                    {/* ✅ Show Edit/Delete buttons only if user is the author */}
+                    {currentUser && post.user_id === currentUser.id && (
+            <div className="post-actions">
+              {/* <button className="edit-btn" onClick={handleCommentPost}>Edit</button>
+              <button className="delete-btn" onClick={handleDeletePost}>Delete</button> */}
+            </div>
+          )
+          }
+  
 
           {/* ✅ Comments Section */}
           <div className="comments-section">
@@ -158,9 +172,15 @@ const BlogPost = () => {
                     </div>
                   ) : (
                     <>
-                      <p>{comment.text}</p>
-                      <button onClick={() => handleEditComment(comment.id, comment.text)}>Edit</button>
-                      <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
+                      <p><strong>{comment.username}</strong> {comment.text}</p>
+
+                      {/* ✅ Show Edit & Delete only for the comment author */}
+                      {currentUser.id === comment.user_id && (
+                        <div className="comment-actions">
+                          <button className="edit-btn" onClick={() => handleEditComment(comment.id, comment.text)}>Edit</button>
+                          <button className="delete-btn" onClick={() => handleDeleteComment(comment.id)}>Delete</button>
+                        </div>
+                      )}
                     </>
                   )}
                 </div>

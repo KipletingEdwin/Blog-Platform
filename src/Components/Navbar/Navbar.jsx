@@ -7,6 +7,10 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated, userRole }) => {
   const navigate = useNavigate();
   const username = localStorage.getItem("username") || "Guest";
 
+
+
+
+
   const handleLogout = () => {
     localStorage.removeItem("isAuthenticated");
     localStorage.removeItem("userRole");

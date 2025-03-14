@@ -63,6 +63,32 @@
   background: #0056b3;
 }
 
+
+select{
+  cursor: pointer;
+  background: white;
+}
+
+select:focus{
+  border-color: #007bff;
+  outline: none;
+}
+
+button {
+  padding: 8px;
+  font-size: 18px;
+  background: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
 /* 📱 Responsive Design */
 @media (max-width: 768px) {
   .create-post-container {
