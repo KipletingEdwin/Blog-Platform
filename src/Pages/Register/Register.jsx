@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // ✅ Import Link for navigation
 import "./Register.css";
 
 const Register = ({ setIsAuthenticated }) => {
@@ -77,6 +77,11 @@ const Register = ({ setIsAuthenticated }) => {
         <input type="password" name="confirmPassword" placeholder="Confirm Password" value={userData.confirmPassword} onChange={handleChange} required />
         <button type="submit">Sign Up</button>
       </form>
+
+      {/* ✅ Already have an account? Sign In Link */}
+      <p className="signin-text">
+        Already have an account? <Link to="/login" className="signin-link">Sign In</Link>
+      </p>
     </div>
   );
 };
