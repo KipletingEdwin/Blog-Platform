@@ -23,12 +23,19 @@ const Login = ({ setIsAuthenticated }) => {
       const data = await response.json();
 
       if (response.ok) {
-        console.log("Login successful:", data);
+        // console.log("Login successful:", data);
         localStorage.setItem("token", data.token);
         localStorage.setItem("isAuthenticated", "true");
         localStorage.setItem("userRole", data.role || "user");
+
+        //Store user informaion correctly
+        localStorage.setItem("user", JSON.stringify(data.user)); // Store user as JSON string
+        localStorage.setItem("username", data.user.username);  //Store username separately
+
+
+
         setIsAuthenticated(true);
-        navigate("/home");
+        navigate("/");
       } else {
         alert("Login failed: " + data.error);
       }

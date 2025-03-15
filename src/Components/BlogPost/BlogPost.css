@@ -1,23 +1,96 @@
-/* 📝 Blog Post Container */
+/* 🌟 Blog Post Container */
 .blogpost-container {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2); /* Matching other pages */
+  border-radius: 12px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  text-align: left;
 }
 
-/* 📌 Comments Section */
+/* 📝 Blog Post Title */
+.blogpost-container h1 {
+  color: #333;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* 📌 Blog Content */
+.blogpost-container p {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* 📂 Category */
+.blogpost-container strong {
+  color: #007bff;
+}
+
+/* ✅ Post Actions (Edit & Delete) */
+.post-actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 12px;
+}
+
+.post-actions button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s;
+}
+
+/* 🎨 Edit Button */
+.post-actions .edit-btn {
+  background: #ffc107;
+  color: black;
+}
+
+.post-actions .edit-btn:hover {
+  background: #e0a800;
+  transform: scale(1.05);
+}
+
+/* 🗑 Delete Button */
+.post-actions .delete-btn {
+  background: #dc3545;
+  color: white;
+}
+
+.post-actions .delete-btn:hover {
+  background: #b52b37;
+  transform: scale(1.05);
+}
+
+/* 💬 Comments Section */
 .comments-section {
-  margin-top: 20px;
+  margin-top: 30px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* 📝 Comments Title */
+.comments-section h2 {
+  color: #007bff;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+/* 💬 Individual Comment */
 .comment {
   background: #f9f9f9;
-  padding: 12px;
+  padding: 15px;
   border-radius: 8px;
   margin-bottom: 12px;
+  border-left: 4px solid #007bff;
   transition: background 0.3s ease-in-out;
 }
 
@@ -25,47 +98,66 @@
   background: #f1f1f1;
 }
 
+/* 🖋 Comment Author */
+.comment strong {
+  color: #333;
+  font-weight: bold;
+}
+
 /* 🎯 Comment Form */
+.comment-form {
+  margin-top: 20px;
+}
+
+/* 🎯 Comment Input - Fixed Width */
 .comment-form input {
-  width: 100%;
+  width: calc(100% - 20px); /* Adjust width to fit inside the comment section */
+  max-width: 100%; /* Ensure it never overflows */
   padding: 12px;
   margin-top: 10px;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-size: 16px;
+  box-sizing: border-box; /* Prevents unexpected size changes */
 }
 
+
+/* 🔘 Post Comment Button */
 .comment-form button {
   margin-top: 10px;
-  padding: 10px;
-  background: #007bff;
+  padding: 12px;
+  background: linear-gradient(120deg, #007bff, #0056b3);
   color: white;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background 0.3s ease-in-out;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: background 0.3s ease-in-out, transform 0.2s;
 }
 
 .comment-form button:hover {
-  background: #0056b3;
+  background: linear-gradient(120deg, #0056b3, #003d82);
+  transform: scale(1.05);
 }
 
-/* ✅ Edit & Delete Buttons */
+/* 🛠 Edit & Delete Buttons for Comments */
 .comment-actions {
   margin-top: 8px;
   display: flex;
-  gap: 10px;
+  justify-content: flex-end;
+  gap: 8px;
 }
 
 .comment-actions button {
-  padding: 6px 12px;
+  padding: 8px 12px;
   font-size: 14px;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background 0.3s ease-in-out;
+  border-radius: 6px;
+  transition: background 0.3s ease-in-out, transform 0.2s;
 }
 
-/* 🎨 Edit Button */
+/* 🖊 Edit Button */
 .comment-actions .edit-btn {
   background: #ffc107;
   color: black;
@@ -73,6 +165,7 @@
 
 .comment-actions .edit-btn:hover {
   background: #e0a800;
+  transform: scale(1.05);
 }
 
 /* 🗑 Delete Button */
@@ -83,13 +176,14 @@
 
 .comment-actions .delete-btn:hover {
   background: #b52b37;
+  transform: scale(1.05);
 }
 
-/* 📌 Editing Mode */
+/* ✍ Editing Comment */
 .edit-comment-textarea {
   width: 100%;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 6px;
   margin-top: 5px;
   border: 1px solid #ccc;
 }
@@ -98,7 +192,7 @@
 .save-cancel-buttons {
   display: flex;
   gap: 10px;
-  margin-top: 8px;
+  justify-content: flex-end;
 }
 
 .save-cancel-buttons .save-btn {
@@ -108,6 +202,7 @@
 
 .save-cancel-buttons .save-btn:hover {
   background: #218838;
+  transform: scale(1.05);
 }
 
 .save-cancel-buttons .cancel-btn {
@@ -117,6 +212,37 @@
 
 .save-cancel-buttons .cancel-btn:hover {
   background: #5a6268;
+  transform: scale(1.05);
 }
 
+/* 📱 Responsive Design */
+@media screen and (max-width: 768px) {
+  .blogpost-container {
+      width: 95%;
+      padding: 20px;
+  }
 
+  .comment {
+      padding: 12px;
+  }
+
+  .comment-actions {
+      flex-direction: row;
+      justify-content: space-between;
+  }
+
+  .save-cancel-buttons {
+      flex-direction: row;
+      justify-content: space-between;
+  }
+
+  .post-actions {
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+  }
+
+  .comment-form input {
+      width: 100%;
+  }
+}
