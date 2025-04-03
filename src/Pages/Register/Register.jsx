@@ -34,7 +34,7 @@ const Register = ({ setIsAuthenticated }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/signup", {
+      const response = await fetch("https://blogpost-api-h8mq.onrender.com/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
