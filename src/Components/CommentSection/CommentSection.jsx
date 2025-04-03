@@ -9,7 +9,7 @@ const CommentSection = ({ postId }) => {
   const token = localStorage.getItem("token"); // ✅ Retrieve token
 
   useEffect(() => {
-    fetch(`http://localhost:3000/posts/${postId}/comments`)
+    fetch(`https://blogpost-api-h8mq.onrender.com/posts/${postId}/comments`)
       .then((response) => response.json())
       .then((data) => setComments(data))
       .catch((error) => console.error("Error fetching comments:", error));
@@ -20,7 +20,7 @@ const CommentSection = ({ postId }) => {
     if (!newComment.trim()) return;
 
     try {
-      const response = await fetch(`http://localhost:3000/posts/${postId}/comments`, {
+      const response = await fetch(`https://blogpost-api-h8mq.onrender.com/posts/${postId}/comments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,7 +46,7 @@ const CommentSection = ({ postId }) => {
     if (!window.confirm("Are you sure you want to delete this comment?")) return;
 
     try {
-      const response = await fetch(`http://localhost:3000/comments/${commentId}`, {
+      const response = await fetch(`https://blogpost-api-h8mq.onrender.com/comments/${commentId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -72,7 +72,7 @@ const CommentSection = ({ postId }) => {
     if (!editedCommentText.trim()) return;
 
     try {
-      const response = await fetch(`http://localhost:3000/comments/${commentId}`, {
+      const response = await fetch(`https://blogpost-api-h8mq.onrender.com/comments/${commentId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

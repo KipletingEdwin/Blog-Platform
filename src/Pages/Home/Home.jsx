@@ -11,7 +11,7 @@ const Home = () => {
 
   // ✅ Fetch posts when component mounts
   useEffect(() => {
-    fetch("http://localhost:3000/posts")
+    fetch("https://blogpost-api-h8mq.onrender.com/posts")
       .then((res) => res.json())
       .then((data) => {
         setPosts(data);

@@ -20,7 +20,7 @@ const CreatePost = () => {
   
     try {
       const response = await axios.post(
-        "http://localhost:3000/posts",
+        "https://blogpost-api-h8mq.onrender.com/posts",
         { title, content, category },
         {
           headers: {

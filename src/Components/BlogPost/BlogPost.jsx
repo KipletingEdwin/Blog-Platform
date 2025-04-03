@@ -19,12 +19,12 @@ const BlogPost = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    fetch(`http://localhost:3000/posts/${id}`)
+    fetch(`https://blogpost-api-h8mq.onrender.com/posts/${id}`)
       .then((res) => res.json())
       .then((data) => setPost(data))
       .catch((err) => console.error("Error fetching post:", err));
 
-    fetch(`http://localhost:3000/posts/${id}/comments`, {
+    fetch(`https://blogpost-api-h8mq.onrender.com/posts/${id}/comments`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -57,7 +57,7 @@ const BlogPost = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:3000/posts/${id}/comments`, {
+      const response = await fetch(`https://blogpost-api-h8mq.onrender.com/posts/${id}/comments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -89,7 +89,7 @@ const BlogPost = () => {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await fetch(`http://localhost:3000/comments/${commentId}`, {
+      const response = await fetch(`https://blogpost-api-h8mq.onrender.com/comments/${commentId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -118,7 +118,7 @@ const BlogPost = () => {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await fetch(`http://localhost:3000/comments/${commentId}`, {
+      const response = await fetch(`https://blogpost-api-h8mq.onrender.com/comments/${commentId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
