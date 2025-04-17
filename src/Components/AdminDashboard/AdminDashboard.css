@@ -108,14 +108,14 @@
     border: 1px solid #ddd;
   }
   
-  .save-btn {
+  /* .save-btn {
     background-color: #28a745;
     color: white;
     padding: 8px;
     margin-top: 10px;
     border: none;
     border-radius: 5px;
-  }
+  } */
   
   .cancel-btn {
     background-color: #dc3545;
