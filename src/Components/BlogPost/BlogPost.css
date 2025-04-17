@@ -1,15 +1,13 @@
-/* 🌟 Blog Post Container */
 .blogpost-container {
   max-width: 900px;
   margin: 40px auto;
   padding: 30px;
-  background: linear-gradient(135deg, #f5f7fa, #c3cfe2); /* Matching other pages */
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2); 
   border-radius: 12px;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
   text-align: left;
 }
 
-/* 📝 Blog Post Title */
 .blogpost-container h1 {
   color: #333;
   font-size: 28px;
@@ -17,19 +15,16 @@
   margin-bottom: 15px;
 }
 
-/* 📌 Blog Content */
 .blogpost-container p {
   font-size: 16px;
   color: #555;
   line-height: 1.6;
 }
 
-/* 📂 Category */
 .blogpost-container strong {
   color: #007bff;
 }
 
-/* ✅ Post Actions (Edit & Delete) */
 .post-actions {
   margin-top: 15px;
   display: flex;
@@ -46,7 +41,6 @@
   transition: background 0.3s ease-in-out, transform 0.2s;
 }
 
-/* 🎨 Edit Button */
 .post-actions .edit-btn {
   background: #ffc107;
   color: black;
@@ -57,7 +51,6 @@
   transform: scale(1.05);
 }
 
-/* 🗑 Delete Button */
 .post-actions .delete-btn {
   background: #dc3545;
   color: white;
@@ -68,7 +61,6 @@
   transform: scale(1.05);
 }
 
-/* 💬 Comments Section */
 .comments-section {
   margin-top: 30px;
   background: #fff;
@@ -77,14 +69,12 @@
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* 📝 Comments Title */
 .comments-section h2 {
   color: #007bff;
   font-size: 20px;
   margin-bottom: 15px;
 }
 
-/* 💬 Individual Comment */
 .comment {
   background: #f9f9f9;
   padding: 15px;
@@ -98,31 +88,26 @@
   background: #f1f1f1;
 }
 
-/* 🖋 Comment Author */
 .comment strong {
   color: #333;
   font-weight: bold;
 }
 
-/* 🎯 Comment Form */
 .comment-form {
   margin-top: 20px;
 }
 
-/* 🎯 Comment Input - Fixed Width */
 .comment-form input {
-  width: calc(100% - 20px); /* Adjust width to fit inside the comment section */
-  max-width: 100%; /* Ensure it never overflows */
+  width: calc(100% - 20px); 
+  max-width: 100%; 
   padding: 12px;
   margin-top: 10px;
   border: 1px solid #ddd;
   border-radius: 6px;
   font-size: 16px;
-  box-sizing: border-box; /* Prevents unexpected size changes */
+  box-sizing: border-box; 
 }
 
-
-/* 🔘 Post Comment Button */
 .comment-form button {
   margin-top: 10px;
   padding: 12px;
@@ -140,7 +125,6 @@
   transform: scale(1.05);
 }
 
-/* 🛠 Edit & Delete Buttons for Comments */
 .comment-actions {
   margin-top: 8px;
   display: flex;
@@ -157,7 +141,6 @@
   transition: background 0.3s ease-in-out, transform 0.2s;
 }
 
-/* 🖊 Edit Button */
 .comment-actions .edit-btn {
   background: #ffc107;
   color: black;
@@ -168,7 +151,6 @@
   transform: scale(1.05);
 }
 
-/* 🗑 Delete Button */
 .comment-actions .delete-btn {
   background: #dc3545;
   color: white;
@@ -178,8 +160,6 @@
   background: #b52b37;
   transform: scale(1.05);
 }
-
-/* ✍ Editing Comment */
 .edit-comment-textarea {
   width: 100%;
   padding: 10px;
@@ -188,7 +168,6 @@
   border: 1px solid #ccc;
 }
 
-/* Save & Cancel Buttons */
 .save-cancel-buttons {
   display: flex;
   gap: 10px;
@@ -215,7 +194,6 @@
   transform: scale(1.05);
 }
 
-/* 📱 Responsive Design */
 @media screen and (max-width: 768px) {
   .blogpost-container {
       width: 95%;

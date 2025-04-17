@@ -8,13 +8,11 @@ const AdminDashboard = () => {
   const [editPost, setEditPost] = useState(null);
   const [editModalOpen, setEditModalOpen] = useState(false);
 
-  // ✅ Fetch Posts and Comments
   useEffect(() => {
     axios.get("https://blogpost-api-h8mq.onrender.com/posts").then((res) => setPosts(res.data));
     axios.get("https://blogpost-api-h8mq.onrender.com/comments").then((res) => setComments(res.data));
   }, []);
 
-  // ✅ Delete Post
   const deletePost = async (postId) => {
     if (window.confirm("Are you sure you want to delete this post?")) {
       await axios.delete(`https://blogpost-api-h8mq.onrender.com/posts/${postId}`);
@@ -22,7 +20,6 @@ const AdminDashboard = () => {
     }
   };
 
-  // ✅ Delete Comment
   const deleteComment = async (commentId) => {
     if (window.confirm("Are you sure you want to delete this comment?")) {
       await axios.delete(`https://blogpost-api-h8mq.onrender.com/comments/${commentId}`);
@@ -30,13 +27,11 @@ const AdminDashboard = () => {
     }
   };
 
-  // ✅ Open Edit Modal with Selected Post Data
   const openEditModal = (post) => {
     setEditPost(post);
     setEditModalOpen(true);
   };
 
-  // ✅ Handle Post Update Submission
   const handleUpdatePost = async (e) => {
     e.preventDefault();
 
@@ -52,8 +47,6 @@ const AdminDashboard = () => {
   return (
     <div className="admin-dashboard">
       <h2>Admin Dashboard</h2>
-
-      {/* 📌 Manage Posts Section */}
       <div className="dashboard-section">
         <h3>📄 Manage Posts</h3>
         {posts.length > 0 ? (
@@ -83,7 +76,6 @@ const AdminDashboard = () => {
         )}
       </div>
 
-      {/* 💬 Manage Comments Section */}
       <div className="dashboard-section">
         <h3>💬 Manage Comments</h3>
         {comments.length > 0 ? (
@@ -112,7 +104,6 @@ const AdminDashboard = () => {
         )}
       </div>
 
-      {/* 📝 Edit Post Modal */}
       {editModalOpen && (
         <div className="modal-overlay">
           <div className="modal">

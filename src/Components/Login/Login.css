@@ -1,14 +1,12 @@
-/* 🌟 Centered Login Page */
 .login-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background: linear-gradient(135deg, #f5f7fa, #c3cfe2); /* Subtle gradient background */
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2); 
 }
 
-/* 📦 Login Box */
 .login-container form {
     display: flex;
     flex-direction: column;
@@ -20,7 +18,6 @@
     text-align: center;
 }
 
-/* 🖋 Title */
 .login-container h2 {
     margin-bottom: 15px;
     font-size: 22px;
@@ -28,7 +25,6 @@
     font-weight: bold;
 }
 
-/* ✍ Input Fields */
 .login-container input {
     padding: 12px;
     width: 280px;
@@ -44,10 +40,8 @@
     outline: none;
 }
 
-/* 🔘 Login Button */
 .login-container button {
-    background: linear-gradient(120deg, #DA7C25, #B923E1); /* Gradient */
-    color: white;
+    background: linear-gradient(120deg, #DA7C25, #B923E1); 
     padding: 12px;
     border: none;
     cursor: pointer;
@@ -61,7 +55,6 @@
     background: linear-gradient(120deg, #B923E1, #7C14C1);
     transform: scale(1.05);
 }
-/* 📝 Sign Up Link Styling */
 .signup-text {
     margin-top: 15px;
     font-size: 14px;
@@ -79,9 +72,6 @@
     color: #7C14C1;
 }
 
-
-
-/* 📱 Responsive Design */
 @media screen and (max-width: 480px) {
     .login-container form {
         width: 90%;

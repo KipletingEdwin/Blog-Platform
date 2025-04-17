@@ -6,7 +6,7 @@ const CommentSection = ({ postId }) => {
   const [newComment, setNewComment] = useState("");
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editedCommentText, setEditedCommentText] = useState("");
-  const token = localStorage.getItem("token"); // ✅ Retrieve token
+  const token = localStorage.getItem("token"); 
 
   useEffect(() => {
     fetch(`https://blogpost-api-h8mq.onrender.com/posts/${postId}/comments`)
@@ -15,7 +15,6 @@ const CommentSection = ({ postId }) => {
       .catch((error) => console.error("Error fetching comments:", error));
   }, [postId]);
 
-  // ✅ Handle Adding a Comment
   const handleAddComment = async () => {
     if (!newComment.trim()) return;
 
@@ -31,8 +30,8 @@ const CommentSection = ({ postId }) => {
 
       if (response.ok) {
         const savedComment = await response.json();
-        setComments([...comments, savedComment]); // Add to UI
-        setNewComment(""); // Clear input
+        setComments([...comments, savedComment]); 
+        setNewComment(""); 
       } else {
         console.error("Error submitting comment:", await response.json());
       }
@@ -41,7 +40,6 @@ const CommentSection = ({ postId }) => {
     }
   };
 
-  // ✅ Handle Deleting a Comment
   const handleDeleteComment = async (commentId) => {
     if (!window.confirm("Are you sure you want to delete this comment?")) return;
 
@@ -52,7 +50,7 @@ const CommentSection = ({ postId }) => {
       });
 
       if (response.ok) {
-        setComments(comments.filter((comment) => comment.id !== commentId)); // Remove from UI
+        setComments(comments.filter((comment) => comment.id !== commentId)); 
       } else {
         console.error("Error deleting comment:", await response.json());
       }
@@ -61,13 +59,11 @@ const CommentSection = ({ postId }) => {
     }
   };
 
-  // ✅ Handle Editing a Comment
   const handleEditComment = (commentId, currentText) => {
     setEditingCommentId(commentId);
     setEditedCommentText(currentText);
   };
 
-  // ✅ Handle Updating a Comment
   const handleUpdateComment = async (commentId) => {
     if (!editedCommentText.trim()) return;
 
@@ -87,7 +83,7 @@ const CommentSection = ({ postId }) => {
             comment.id === commentId ? { ...comment, text: editedCommentText } : comment
           )
         );
-        setEditingCommentId(null); // Exit edit mode
+        setEditingCommentId(null); 
       } else {
         console.error("Error updating comment:", await response.json());
       }
@@ -100,7 +96,6 @@ const CommentSection = ({ postId }) => {
     <div className="comment-section">
       <h2>Comments</h2>
       
-      {/* List Comments */}
       {comments.length > 0 ? (
         comments.map((comment) => (
           <div key={comment.id} className="comment">
@@ -127,7 +122,6 @@ const CommentSection = ({ postId }) => {
         <p>No comments yet.</p>
       )}
 
-      {/* Add Comment */}
       <div className="add-comment">
         <textarea
           value={newComment}

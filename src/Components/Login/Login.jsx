@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
+import { useNavigate } from "react-router-dom"; 
 import './Login.css'
 
 const Login = ({setIsAuthenticated}) => {
   const [credentials, setCredentials] = useState({ username: "", password: "" });
-  const navigate = useNavigate(); // ✅ Initialize navigate function
+  const navigate = useNavigate(); 
 
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -25,16 +25,15 @@ const Login = ({setIsAuthenticated}) => {
       if (response.ok) {
         console.log("Login successful:", data);
   
-        // ✅ Ensure `localStorage` updates BEFORE setting state
+        //  Ensure `localStorage` updates BEFORE setting state
         localStorage.setItem("token", data.token);
         localStorage.setItem("isAuthenticated", "true"); 
         localStorage.setItem("userRole", data.role || "user");
   
         console.log("Stored Auth:", localStorage.getItem("isAuthenticated")); // ✅ Debug log
   
-        setIsAuthenticated(true); // ✅ Update state
+        setIsAuthenticated(true); //  Update state
   
-        // ✅ Redirect AFTER setting auth
         navigate("/home");
   
       } else {
